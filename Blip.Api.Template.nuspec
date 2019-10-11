@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Blip.Api.Template</id>
+    <version>4.0.1-beta</version>
+    <description>
+      Starts a new BLiP API project
+    </description>
+    <authors>Lucas Mundim</authors>
+	<releaseNotes>
+		Updated to dotnet 3.0; Changed Architecture to layered; Fix guid replacement
+	</releaseNotes>
+    <packageTypes>
+      <packageType name="Template" />
+    </packageTypes>
+  </metadata>
+</package>
