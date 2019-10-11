@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <id>Blip.Api.Template</id>
-    <version>4.0.1-beta</version>
+    <id>Blip.Api.Template.K8s</id>
+    <version>1.0.0-beta</version>
     <description>
-      Starts a new BLiP API project
+      Starts a new K8s-enabled BLiP API project
     </description>
-    <authors>Lucas Mundim</authors>
+    <authors>Lucas Mundim, Tulio Rezende</authors>
 	<releaseNotes>
-		Updated to dotnet 3.0; Changed Architecture to layered; Fix guid replacement
+		Startup with K8s, from lfmundim/Blip.Api.Template 
 	</releaseNotes>
     <packageTypes>
       <packageType name="Template" />

@@ -2,9 +2,9 @@
   "$schema": "http://json.schemastore.org/template",
   "author": "Lucas Mundim",
   "classifications": [ "API", "ASP.NET Core", "BLiP" ],
-  "identity": "Blip.Api.Template",
-  "name": "BLiP API Template",
-  "shortName": "blip-api",
+  "identity": "Blip.Api.Template.K8s",
+  "name": "BLiP API Template - Kubernetes",
+  "shortName": "blip-api-k8s",
   "tags":{
     "language": "C#" 
   },

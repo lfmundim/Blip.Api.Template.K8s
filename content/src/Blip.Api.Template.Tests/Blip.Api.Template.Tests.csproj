@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <ProjectGuid>sonarqube-guid-tests</ProjectGuid>
+    <ProjectGuid>{FE7A5C89-B282-4526-A91B-45A586FA9BD7}</ProjectGuid>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
