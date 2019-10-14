@@ -5,8 +5,9 @@ fullnameOverride: blipapitemplate
 replicaCount: 1
 image:
   repository: blipapitemplate
-  tag: stable
+  tag: #{Build.BuildId}#
   pullPolicy: IfNotPresent
+  imagePullSecretName: acr-takeprivate-secret
 imagePullSecrets: []
   # Optionally specify an array of imagePullSecrets.
   # Secrets must be manually created in the namespace.
@@ -22,10 +23,10 @@ probes:
   enabled: false
 
 ingress:
-  enabled: false
+  enabled: true
   annotations:
-    # kubernetes.io/tls-acme: "true"
-  path: /
+      kubernetes.io/ingress.class: nginx
+  hostName: hostName
   # hosts:
   #   - chart-example.local
   tls: []
@@ -60,3 +61,11 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+environment: 
+  stage: staging
+
+appSettings:
+  configMap: blipapitemplate
+  path: /app/appsettings.json
+  subPath: appsettings.json

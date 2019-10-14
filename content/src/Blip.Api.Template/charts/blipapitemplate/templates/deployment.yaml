@@ -1,11 +1,11 @@
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: {{ template "blipapitemplate.fullname" . }}
+  name: {{ template "blipapitemplate.fullname" . }}-{{ .Values.environment.stage }}
   labels:
     app: {{ template "blipapitemplate.name" . }}
     chart: {{ template "blipapitemplate.chart" . }}
-    draft: {{ .Values.draft | default "draft-app" }}
+    draft: {{ default "draft-app" .Values.draft }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
@@ -18,15 +18,21 @@ spec:
     metadata:
       labels:
         app: {{ template "blipapitemplate.name" . }}
-        draft: {{ .Values.draft | default "draft-app" }}
+        draft: {{ default "draft-app" .Values.draft }}
         release: {{ .Release.Name }}
       annotations:
-        buildID: {{ .Values.buildID | default "" | quote }}
+        buildID: {{ .Values.buildID }}
     spec:
+      imagePullSecrets:
+        - name: {{ .Values.image.imagePullSecretName }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+          - name: config
+            mountPath: {{ .Values.appSettings.path }}
+            subPath: {{ .Values.appSettings.subPath }}
           ports:
             - name: http
               containerPort: 80
@@ -70,3 +76,7 @@ spec:
       tolerations:
 {{ toYaml . | indent 8 }}
     {{- end }}
+      volumes: 
+      - name: config
+        configMap:
+          name: {{ .Values.appSettings.configMap }}-{{ .Values.environment.stage }}

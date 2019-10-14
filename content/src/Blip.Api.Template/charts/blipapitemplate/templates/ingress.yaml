@@ -1,11 +1,9 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "blipapitemplate.fullname" . -}}
-{{- $servicePort := .Values.service.port -}}
-{{- $ingressPath := .Values.ingress.path -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: {{ $fullName }}
+  name: {{ template "blipapitemplate.fullname" . }}-{{ .Values.environment.stage }}
   labels:
     app: {{ template "blipapitemplate.name" . }}
     chart: {{ template "blipapitemplate.chart" . }}
@@ -16,24 +14,11 @@ metadata:
 {{ toYaml . | indent 4 }}
 {{- end }}
 spec:
-{{- if .Values.ingress.tls }}
-  tls:
-  {{- range .Values.ingress.tls }}
-    - hosts:
-      {{- range .hosts }}
-        - {{ . }}
-      {{- end }}
-      secretName: {{ .secretName }}
-  {{- end }}
-{{- end }}
   rules:
-  {{- range .Values.ingress.hosts }}
-    - host: {{ . }}
+    - host: {{ .Values.ingress.hostName }}
       http:
         paths:
-          - path: {{ $ingressPath }}
-            backend:
-              serviceName: {{ $fullName }}
+          - backend:
+              serviceName: {{ template "blipapitemplate.fullname" . }}-{{ .Values.environment.stage }}
               servicePort: http
-  {{- end }}
 {{- end }}
