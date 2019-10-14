@@ -1,0 +1,20 @@
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0
+ARG BUILD_CONFIGURATION=Debug
+ENV ASPNETCORE_ENVIRONMENT=Development
+ENV DOTNET_USE_POLLING_FILE_WATCHER=true
+EXPOSE 80
+
+WORKDIR /src
+COPY ["Blip.Api.Template.Facades/Blip.Api.Template.Facades.csproj", "Blip.Api.Template.Facades/"]
+COPY ["Blip.Api.Template.Models/Blip.Api.Template.Models.csproj", "Blip.Api.Template.Models/"]
+COPY ["Blip.Api.Template.Services/Blip.Api.Template.Services.csproj", "Blip.Api.Template.Services/"]
+COPY ["Blip.Api.Template/Blip.Api.Template.csproj", "Blip.Api.Template/"]
+
+RUN dotnet restore "Blip.Api.Template/Blip.Api.Template.csproj"
+COPY . .
+WORKDIR "/src/Blip.Api.Template"
+RUN dotnet build --no-restore "Blip.Api.Template.csproj" -c $BUILD_CONFIGURATION
+
+RUN echo "exec dotnet run --no-build --no-launch-profile -c $BUILD_CONFIGURATION --" > /entrypoint.sh
+
+ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
