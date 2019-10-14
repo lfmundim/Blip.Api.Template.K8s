@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace Blip.Api.Template
 {
-    #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-    #pragma warning disable RCS1102 // Make class static.
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable RCS1102 // Make class static.
     public class Program
-    #pragma warning restore RCS1102 // Make class static.
+#pragma warning restore RCS1102 // Make class static.
     {
         public static void Main(string[] args)
         {
@@ -16,7 +16,8 @@ namespace Blip.Api.Template
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
+                .UseKestrel()
                 .Build();
     }
-    #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }
