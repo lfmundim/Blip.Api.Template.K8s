@@ -2,13 +2,13 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Blip.Api.Template.K8s</id>
-    <version>1.0.0-beta</version>
+    <version>1.0.0</version>
     <description>
       Starts a new K8s-enabled BLiP API project
     </description>
     <authors>Lucas Mundim, Tulio Rezende</authors>
 	<releaseNotes>
-		Startup with K8s, from lfmundim/Blip.Api.Template 
+		Startup with K8s, from lfmundim/Blip.Api.Template.K8s 
 	</releaseNotes>
     <packageTypes>
       <packageType name="Template" />
