@@ -1,4 +1,4 @@
-# BLiP.API.Template.K8s [![Build Status](https://travis-ci.org/lfmundim/Blip.Api.Template.K8s.svg?branch=master)](https://travis-ci.org/lfmundim/Blip.Api.Template.K8s) [![Nuget](https://buildstats.info/nuget/Blip.Api.Template.K8s)](https://www.nuget.org/packages/blip.api.template.K8s) [![GitHub stars](https://img.shields.io/github/stars/lfmundim/Blip.Api.Template.K8s.svg)](https://github.com/lfmundim/Blip.Api.Template.K8s/stargazers)
+# BLiP.API.Template.K8s [![Build Status](https://travis-ci.org/lfmundim/Blip.Api.Template.K8s.svg?branch=master)](https://travis-ci.org/lfmundim/Blip.Api.Template.K8s) [![Nuget](https://buildstats.info/nuget/Blip.Api.Template.K8s?includePreReleases=true)](https://www.nuget.org/packages/blip.api.template.K8s) [![GitHub stars](https://img.shields.io/github/stars/lfmundim/Blip.Api.Template.K8s.svg)](https://github.com/lfmundim/Blip.Api.Template.K8s/stargazers)
 
 
 ## This template aims to kickstart the development of an API to be used alongside BLiP's Builder feature, ready for Kubernetes orchestration
