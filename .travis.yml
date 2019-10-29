@@ -4,4 +4,4 @@ sudo: required
 dist: xenial
 dotnet: 3.0
 script: 
-  - dotnet build content/src/Blip.Api.Template/Blip.Api.Template.csproj
+  - dotnet build content/Api/Blip.Api.Template/Blip.Api.Template.csproj
