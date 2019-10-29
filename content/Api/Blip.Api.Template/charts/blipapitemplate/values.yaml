@@ -1,0 +1,54 @@
+# Default values for blipapitemplate.
+# Declare variables to be passed into your templates.
+fullnameOverride: blipapitemplate
+replicaCount: 1
+image:
+  repository: blipapitemplate
+  tag: #{Build.BuildId}#
+  pullPolicy: IfNotPresent
+  imagePullSecretName: acr-takeprivate-secret
+imagePullSecrets: []
+service:
+  type: ClusterIP
+  port: 80
+
+probes:
+  enabled: false
+
+ingress:
+  enabled: true
+  annotations:
+      kubernetes.io/ingress.class: nginx
+  hostName: hostName
+  tls:
+    secretName: secretName
+secrets: {}
+resources:
+  limits:
+    cpu: cpuLimit
+    memory: memoryLimit
+  requests:
+    cpu: cpuRequests
+    memory: memoryRequests
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+environment: 
+  stage: staging
+
+appSettings:
+  configMap: blipapitemplate
+  path: /app/appsettings.json
+  subPath: appsettings.json
+
+autoscale:
+  minReplicas: minReplicas
+  maxReplicas: maxReplicas
+  averageCPUUtilization: averageCpuUtilization
+
+team: zeus
+
+annotations: {}

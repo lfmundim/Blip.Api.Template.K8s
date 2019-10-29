@@ -8,6 +8,11 @@ metadata:
     draft: {{ default "draft-app" .Values.draft }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
+    team: {{ .Values.team }}
+  {{- with .Values.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -20,8 +25,11 @@ spec:
         app: {{ template "blipapitemplate.name" . }}
         draft: {{ default "draft-app" .Values.draft }}
         release: {{ .Release.Name }}
+        team: {{ .Values.team }}
+      {{- with .Values.annotations }}
       annotations:
-        buildID: {{ .Values.buildID }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
     spec:
       imagePullSecrets:
         - name: {{ .Values.image.imagePullSecretName }}
@@ -37,6 +45,10 @@ spec:
             - name: http
               containerPort: 80
               protocol: TCP
+          {{- with .Values.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           {{- if .Values.probes.enabled }}
           livenessProbe:
             httpGet:
@@ -79,4 +91,4 @@ spec:
       volumes: 
       - name: config
         configMap:
-          name: {{ .Values.appSettings.configMap }}-{{ .Values.environment.stage }}
+          name: {{ .Values.appSettings.configMap }}

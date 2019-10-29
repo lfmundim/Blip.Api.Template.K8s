@@ -21,4 +21,8 @@ spec:
           - backend:
               serviceName: {{ template "blipapitemplate.fullname" . }}-{{ .Values.environment.stage }}
               servicePort: http
+  tls: 
+    - secretName: {{ .Values.ingress.tls.secretName }}
+      hosts:
+        - {{ .Values.ingress.hostName }}
 {{- end }}

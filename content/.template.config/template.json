@@ -10,11 +10,18 @@
   },
   "symbols": {
     "Services": {
-	  "type": "parameter",
-	  "datatype": "string",
-	  "description": "Defines the name of the Services project",
-	  "FileRename": "Blip.Api.Template.Services",
-	  "defaultValue": "Blip.Api.Template.Services"
+      "type": "parameter",
+      "datatype": "string",
+      "description": "Defines the name of the Services project",
+      "FileRename": "Blip.Api.Template.Services",
+      "defaultValue": "Blip.Api.Template.Services"
+    },
+    "aks":{
+      "type": "parameter",
+      "datatype": "string",
+      "replaces": "blipapitemplate",
+      "isRequired": true,
+      "fileRename": "blipapitemplate"
     },
     "sonarqube-guid-ui":{
       "type": "generated",
