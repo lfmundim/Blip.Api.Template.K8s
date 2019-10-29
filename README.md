@@ -1,14 +1,12 @@
-# BLiP.API.Template [![Build Status](https://travis-ci.org/lfmundim/Blip.Api.Template.svg?branch=master)](https://travis-ci.org/lfmundim/Blip.Api.Template) [![Nuget](https://buildstats.info/nuget/Blip.Api.Template)](https://www.nuget.org/packages/blip.api.template) [![GitHub stars](https://img.shields.io/github/stars/lfmundim/Blip.Api.Template.svg)](https://github.com/lfmundim/Blip.Api.Template/stargazers)
+# BLiP.API.Template.K8s [![Build Status](https://travis-ci.org/lfmundim/Blip.Api.Template.K8s.svg?branch=master)](https://travis-ci.org/lfmundim/Blip.Api.Template.K8s) [![Nuget](https://buildstats.info/nuget/Blip.Api.Template.K8s)](https://www.nuget.org/packages/blip.api.template.K8s) [![GitHub stars](https://img.shields.io/github/stars/lfmundim/Blip.Api.Template.K8s.svg)](https://github.com/lfmundim/Blip.Api.Template.K8s/stargazers)
 
 
-## This template aims to kickstart the development of an API to be used alongside BLiP's Builder feature
-
-### **Update Notice:** From version 4.0 on, the template will use `.NET Core 3.0`
+## This template aims to kickstart the development of an API to be used alongside BLiP's Builder feature, ready for Kubernetes orchestration
 
 ## Installation
 If you already have `dotnet` installed, you can install this template with the command
 ```sh
-dotnet new -i Blip.Api.Template
+dotnet new -i Blip.Api.Template.K8s
 ```
 
 If you don't have `dotnet` installed, follow [these](https://www.microsoft.com/net/learn/get-started-with-dotnet-tutorial) instructions from _Microsoft_ to install it on GNU/Linux, Mac or Windows, and then use the command above.
@@ -16,9 +14,9 @@ If you don't have `dotnet` installed, follow [these](https://www.microsoft.com/n
 ## Usage
 To create a new project using this template, after installing, type in the following command
 ```sh
-dotnet new blip-api
+dotnet new blip-api-k8s --aks NameOfYourApi
 ```
-Your new project should be created in the open folder.
+Replace `NameOfYourApi` with whatever your API will be called within the Orhcestration YAML files. Your new project should be created in the open folder.
 
 ### Renaming the `Services` project
 By default, when you create a new solution using the template, all `.csproj` files will use the name of the folder you're in (along with any mentions of `Blip.Api.Template`. You can give the `Services` project a different name should you like it using the CLI param `--Services`. 
@@ -26,7 +24,7 @@ By default, when you create a new solution using the template, all `.csproj` fil
 For example, if you run the command
 
 ```bash
-dotnet new blip-api --Services DifferentName.Services
+dotnet new blip-api-k8s --aks blipapi-template --Services DifferentName.Services
 ```
 
 inside a folder named `Blip.Bot.Project`, it will create a `.sln` with two projects: `Blip.Bot.Project.csproj` and `DifferentName.Services.csproj`, instead of a `Blip.Bot.Project.Services.csproj`.
@@ -34,17 +32,28 @@ inside a folder named `Blip.Bot.Project`, it will create a `.sln` with two proje
 ## File Structure
 ```cs
  📁Blip.Bot.Project // assuming your folder is called Blip.Bot.Project. Whatever name you choose will replace all occurrences of that string in the sln
- |__📁src
+ |__📁Api
     |__📁Blip.Bot.Project // The Web API project Folder
-    |   |__📁Controllers // This will not be created anymore as no default Controllers are provided.
-    |   |   |__📃{YourControllers.cs} // You should definitelly create the folder yourself
+    |   |__📁Controllers 
+    |   |   |__📃{HealthController.cs}
     |   |   |__📃{...}
     |   |__📁Middleware
     |   |   |__📃{ErrorHandlingMiddleware.cs}
     |   |   |__📃{AuthenticationMiddleware.cs}
     |   |   |__📃{YourMiddlewares.cs}
     |   |   |__📃{...}
-    |   |__📃MySettings.cs
+    |   |__📁charts
+    |   |   |__📁blipapitemplate
+    |   |   |   |__📁templates // autoscale should be moved inside this folder when HPA begins to work
+    |   |   |   |   |__📃{_helpers.tpl}
+    |   |   |   |   |__📃{deployment.yaml}
+    |   |   |   |   |__📃{ingress.yaml}
+    |   |   |   |   |__📃{secrets.yaml}
+    |   |   |   |   |__📃{service.yaml}
+    |   |   |   |__📃{.helmignore}
+    |   |   |   |__📃{Chart.yaml}
+    |   |   |   |__📃{autoscale.yaml} // this file is here temporarilly as HPA is not currently workgin
+    |   |   |   |__📃{values.yaml}
     |   |__📃Startup.cs
     |   |__📃Program.cs
     |   |__📃appsettings.json
@@ -76,7 +85,7 @@ inside a folder named `Blip.Bot.Project`, it will create a `.sln` with two proje
 ## Uninstallation
 To uninstall the template from your local machine, use the command
 ```sh
-dotnet new -u Blip.Api.Template
+dotnet new -u Blip.Api.Template.K8s
 ```
 Your current projects that already use the template **will not** be affected.
 
