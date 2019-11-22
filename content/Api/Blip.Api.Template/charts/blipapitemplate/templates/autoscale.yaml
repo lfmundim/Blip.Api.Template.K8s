@@ -8,6 +8,7 @@ metadata:
     draft: {{ default "draft-app" .Values.draft }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
+    team: {{ .Values.team }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
