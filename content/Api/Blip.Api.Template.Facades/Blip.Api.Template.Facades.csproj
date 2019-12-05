@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <ProjectGuid>sonarqube-guid-facades</ProjectGuid>
+    <ProjectGuid>{C4E5B837-8C8D-47ED-973E-FB70664FFB60}</ProjectGuid>
   </PropertyGroup>
 
   <ItemGroup>
