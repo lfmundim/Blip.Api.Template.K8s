@@ -18,7 +18,7 @@
     "Blip.Api.Template": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/index.html",
+      "launchUrl": "api/health",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
