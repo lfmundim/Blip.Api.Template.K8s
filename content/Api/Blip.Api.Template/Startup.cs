@@ -5,7 +5,7 @@ using System.Reflection;
 using Blip.Api.Template.Facades.Extensions;
 using Blip.Api.Template.Middleware;
 using Blip.Api.Template.Models;
-
+using Blip.Api.Template.Models.Ui;
 using Lime.Protocol.Serialization.Newtonsoft;
 
 using Microsoft.AspNetCore.Builder;
@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Take.Api.Security.Heimdall.Extensions;
 
 namespace Blip.Api.Template
 {
@@ -23,6 +24,7 @@ namespace Blip.Api.Template
     {
         private const string SWAGGERFILE_PATH = "./swagger/v1/swagger.json";
         private const string API_VERSION = "v1";
+        private const string SETTINGS_SECTION = "Settings";
 
         public Startup(IConfiguration configuration)
         {
@@ -44,6 +46,10 @@ namespace Blip.Api.Template
             });
 
             services.AddSingletons(Configuration);
+
+            var settings = Configuration.GetSection(SETTINGS_SECTION).Get<ApiSettings>();
+            services.UseBotAuthentication(settings.BlipBotSettings.Authorization);
+
             AddSwagger(services);
 
             services.AddControllers();
@@ -57,8 +63,7 @@ namespace Blip.Api.Template
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMiddleware<AuthorizationMiddleware>()
-               .UseMiddleware<ErrorHandlingMiddleware>();
+            app.UseMiddleware<ErrorHandlingMiddleware>();
 
             // Swagger
             app.UseSwagger()
@@ -69,6 +74,7 @@ namespace Blip.Api.Template
                 });
 
             app.UseHttpsRedirection()
+               .UseAuthentication()
                .UseRouting()
                .UseAuthorization()
                .UseEndpoints(endpoints =>

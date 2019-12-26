@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <ProjectGuid>sonarqube-guid-ui</ProjectGuid>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
@@ -49,6 +49,7 @@
     <PackageReference Include="SimpleInjector" Version="4.7.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc2" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.0.0-rc2" />
+    <PackageReference Include="Take.Api.Security.Heimdall" Version="1.0.0" />
     <PackageReference Include="Take.Blip.Client" Version="0.5.186" />
   </ItemGroup>
 

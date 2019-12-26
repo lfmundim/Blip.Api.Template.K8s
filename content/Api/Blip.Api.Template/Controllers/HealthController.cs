@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Blip.Api.Template.Controllers
@@ -17,11 +15,21 @@ namespace Blip.Api.Template.Controllers
         /// <summary>
         /// Returns 200 if the API is Online
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Basic DateTime info for the server</returns>
         [HttpGet]
         public IActionResult HealthCheck()
         {
-            return Ok("It's alive!");
+            var now = DateTime.Now;
+            return Ok($"It's alive! Server Date Time: {now.ToLongDateString()} {now.ToLongTimeString()} - Daylight Saving: {now.IsDaylightSavingTime()}");
+        }
+
+        /// <summary>
+        /// Returns 200 if you're authorized, 401 if not
+        /// </summary>
+        [HttpGet("Authorization"), Authorize]
+        public IActionResult AuthorizationCheck()
+        {
+            return Ok("You're authorized!");
         }
     }
 }
