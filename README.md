@@ -39,20 +39,19 @@ inside a folder named `Blip.Bot.Project`, it will create a `.sln` with two proje
     |   |   |__📃{...}
     |   |__📁Middleware
     |   |   |__📃{ErrorHandlingMiddleware.cs}
-    |   |   |__📃{AuthenticationMiddleware.cs}
     |   |   |__📃{YourMiddlewares.cs}
     |   |   |__📃{...}
     |   |__📁charts
     |   |   |__📁blipapitemplate
     |   |   |   |__📁templates // autoscale should be moved inside this folder when HPA begins to work
     |   |   |   |   |__📃{_helpers.tpl}
+    |   |   |   |   |__📃{autoscale.yaml} 
     |   |   |   |   |__📃{deployment.yaml}
     |   |   |   |   |__📃{ingress.yaml}
     |   |   |   |   |__📃{secrets.yaml}
     |   |   |   |   |__📃{service.yaml}
     |   |   |   |__📃{.helmignore}
     |   |   |   |__📃{Chart.yaml}
-    |   |   |   |__📃{autoscale.yaml} // this file is here temporarilly as HPA is not currently workgin
     |   |   |   |__📃{values.yaml}
     |   |__📃Startup.cs
     |   |__📃Program.cs
