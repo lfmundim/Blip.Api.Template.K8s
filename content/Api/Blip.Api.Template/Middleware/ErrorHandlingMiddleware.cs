@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -52,17 +53,27 @@ namespace Blip.Api.Template.Middleware
             // Thrown whenever a RestEase call returns with a non-success HttpStatusCode
             if (exception is RestEase.ApiException apiException)
             {
-                context.Response.StatusCode = (int)apiException.StatusCode;
                 _logger.Error(apiException, "[{@user}] Error: {@exception}", context.Request.Headers[Constants.BLIP_USER_HEADER], exception.Message);
+                context.Response.StatusCode = (int)apiException.StatusCode;
             }
             else
             {
                 _logger.Error(exception, "[{@user}] Error: {@exception}", context.Request.Headers[Constants.BLIP_USER_HEADER], exception.Message);
                 context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             }
+            
+            string body = string.Empty;
+            using (var reader = new StreamReader(context.Request.Body))
+            {
+                body = reader.ReadToEnd();
+            }
+
+            _logger.Error(exception, "[traceId:{@traceId}]{@user} Error. Headers: {@headers}. Query: {@query}. Path: {@path}. Body: {@body}",
+                          context.TraceIdentifier, context.Request.Headers[Constants.BLIP_USER_HEADER],
+                          context.Request.Headers, context.Request.Query, context.Request.Path, body);
 
             context.Response.ContentType = MediaType.ApplicationJson;
-            await context.Response.WriteAsync(JsonConvert.SerializeObject(exception.Message + exception.StackTrace));
+            await context.Response.WriteAsync(JsonConvert.SerializeObject($"{exception.Message}| traceId: {context.TraceIdentifier}"));
         }
     }
 }
