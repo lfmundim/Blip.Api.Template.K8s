@@ -2,6 +2,6 @@ language: csharp
 mono: none
 sudo: required
 dist: xenial
-dotnet: 3.0
+dotnet: 3.1
 script: 
   - dotnet build content/Api/Blip.Api.Template/Blip.Api.Template.csproj
