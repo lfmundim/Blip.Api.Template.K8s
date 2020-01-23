@@ -65,7 +65,7 @@ namespace Blip.Api.Template.Middleware
             string body = string.Empty;
             using (var reader = new StreamReader(context.Request.Body))
             {
-                body = reader.ReadToEnd();
+                body = await reader.ReadToEndAsync();
             }
 
             _logger.Error(exception, "[traceId:{@traceId}]{@user} Error. Headers: {@headers}. Query: {@query}. Path: {@path}. Body: {@body}",
