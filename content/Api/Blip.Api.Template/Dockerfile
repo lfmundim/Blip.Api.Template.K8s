@@ -1,8 +1,8 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.0-alpine AS base
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine AS base
 WORKDIR /app
 EXPOSE 80
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0-alpine AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine AS build
 WORKDIR /src
 COPY ["Blip.Api.Template.Facades/Blip.Api.Template.Facades.csproj", "Blip.Api.Template.Facades/"]
 COPY ["Blip.Api.Template.Models/Blip.Api.Template.Models.csproj", "Blip.Api.Template.Models/"]

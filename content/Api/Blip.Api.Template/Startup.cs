@@ -16,6 +16,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Take.Api.Security.Heimdall.Extensions;
 
+using Take.Api.Health.Eir.Extensions;
+
 namespace Blip.Api.Template
 {
 
@@ -53,6 +55,7 @@ namespace Blip.Api.Template
             AddSwagger(services);
 
             services.AddControllers();
+            services.AddApiHealthCheck();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -80,7 +83,8 @@ namespace Blip.Api.Template
                .UseEndpoints(endpoints =>
                 {
                     endpoints.MapControllers();
-                });
+                })
+               .UseJsonResponseHealthChecks();
         }
 
         private void AddSwagger(IServiceCollection services)
