@@ -17,6 +17,9 @@ using Microsoft.OpenApi.Models;
 using Take.Api.Security.Heimdall.Extensions;
 
 using Take.Api.Health.Eir.Extensions;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Routing;
 
 namespace Blip.Api.Template
 {
@@ -27,6 +30,9 @@ namespace Blip.Api.Template
         private const string SWAGGERFILE_PATH = "./swagger/v1/swagger.json";
         private const string API_VERSION = "v1";
         private const string SETTINGS_SECTION = "Settings";
+        private const string HEALTH_CHECK_ENDPOINT = "/health";
+        private const string BLIP_CSS = "blip.css";
+        private const string API_CHECK_KEY = "API";
 
         public Startup(IConfiguration configuration)
         {
@@ -56,6 +62,8 @@ namespace Blip.Api.Template
 
             services.AddControllers();
             services.AddApiHealthCheck();
+
+            AddHealthCheckUI(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -83,6 +91,7 @@ namespace Blip.Api.Template
                .UseEndpoints(endpoints =>
                 {
                     endpoints.MapControllers();
+                    MapHealthCheck(endpoints);
                 })
                .UseJsonResponseHealthChecks();
         }
@@ -95,6 +104,27 @@ namespace Blip.Api.Template
                 var xmlFile = Assembly.GetExecutingAssembly().GetName().Name + Constants.XML_EXTENSION;
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
+            });
+        }
+
+        private void AddHealthCheckUI(IServiceCollection services)
+        {
+            services.AddHealthChecksUI(setupSettings: settings =>
+            {
+                settings.AddHealthCheckEndpoint(API_CHECK_KEY, HEALTH_CHECK_ENDPOINT);
+            });
+        }
+
+        private void MapHealthCheck(IEndpointRouteBuilder endpoints)
+        {
+            endpoints.MapHealthChecksUI(settings =>
+            {
+                settings.AddCustomStylesheet(BLIP_CSS);
+            });
+
+            endpoints.MapHealthChecks(HEALTH_CHECK_ENDPOINT, new HealthCheckOptions
+            {
+                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
             });
         }
     }

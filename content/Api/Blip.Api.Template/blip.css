@@ -1,0 +1,8 @@
+:root {
+    --primaryColor: #2e3542;
+    --secondaryColor: #2cc3d5;
+    --bgMenuActive: #2cc3d5;
+    --bgButton: #2cc3d5;
+    --logoImageUrl: url('https://s3-sa-east-1.amazonaws.com/i.imgtake.takenet.com.br/inunsb75xb/inunsb75xb.png');
+    --bgAside: var(--primaryColor);
+}

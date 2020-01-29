@@ -2,13 +2,13 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Blip.Api.Template.K8s</id>
-    <version>1.3.1</version>
+    <version>1.4.0</version>
     <description>
       Starts a new K8s-enabled BLiP API project
     </description>
     <authors>Lucas Mundim, Tulio Rezende</authors>
 	<releaseNotes>
-		Add Take.Api.Health.Eir package and remove HealthController; Remove tests as the subject was removed
+		Add HealthCheck UI
 	</releaseNotes>
     <packageTypes>
       <packageType name="Template" />
