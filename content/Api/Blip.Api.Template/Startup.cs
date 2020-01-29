@@ -30,7 +30,7 @@ namespace Blip.Api.Template
         private const string SWAGGERFILE_PATH = "./swagger/v1/swagger.json";
         private const string API_VERSION = "v1";
         private const string SETTINGS_SECTION = "Settings";
-        private const string HEALTH_CHECK_ENDPOINT = "/health";
+        private const string HEALTH_CHECK_ENDPOINT = "http://localhost:80/health";
         private const string BLIP_CSS = "blip.css";
         private const string API_CHECK_KEY = "API";
 
