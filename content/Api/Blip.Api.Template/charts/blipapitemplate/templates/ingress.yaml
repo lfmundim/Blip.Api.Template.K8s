@@ -13,6 +13,9 @@ metadata:
   annotations:
 {{ toYaml . | indent 4 }}
 {{- end }}
+{{- if .Values.ingress.whitelist.ranges -}}
+    nginx.ingress.kubernetes.io/whitelist-source-range: {{ .Values.ingress.whitelist.ranges }}
+{{- end }}
 spec:
   rules:
     - host: {{ .Values.ingress.hostName }}
