@@ -110,6 +110,3 @@ Furthermore, I will list some other interesting packages:
     ```
 * For logging:
     * [RestingLogger](https://github.com/lfmundim/RestingLogger): easy-to-use RestEase-powered library that logs every request sent and response received from external APIs. Optimized and tested using Serilog while logging on SEQ. **Note: might not work on other architectures.**
-
-## Feature Roadmap
-* Basic controller for external link tracking
