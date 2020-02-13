@@ -14,7 +14,7 @@ If you don't have `dotnet` installed, follow [these](https://www.microsoft.com/n
 ## Usage
 To create a new project using this template, after installing, type in the following command
 ```sh
-dotnet new blip-api-k8s --aks NameOfYourApi
+dotnet new blip-api-k8s --projectName NameOfYourApi --aksName NameInAKS
 ```
 Replace `NameOfYourApi` with whatever your API will be called within the Orhcestration YAML files. Your new project should be created in the open folder.
 
@@ -24,7 +24,7 @@ By default, when you create a new solution using the template, all `.csproj` fil
 For example, if you run the command
 
 ```bash
-dotnet new blip-api-k8s --aks blipapi-template --Services DifferentName.Services
+dotnet new blip-api-k8s --projectName blipapi-template --aksName NameInAKS --Services DifferentName.Services
 ```
 
 inside a folder named `Blip.Bot.Project`, it will create a `.sln` with two projects: `Blip.Bot.Project.csproj` and `DifferentName.Services.csproj`, instead of a `Blip.Bot.Project.Services.csproj`.
@@ -33,6 +33,7 @@ inside a folder named `Blip.Bot.Project`, it will create a `.sln` with two proje
 ```cs
  📁Blip.Bot.Project // assuming your folder is called Blip.Bot.Project. Whatever name you choose will replace all occurrences of that string in the sln
  |__📁Api
+    |__📃{azure-pipelines.yml}
     |__📁Blip.Bot.Project // The Web API project Folder
     |   |__📁Controllers 
     |   |   |__📃{HealthController.cs}

@@ -1,10 +1,10 @@
 apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ template "blipapitemplate.fullname" . }}-{{ .Values.environment.stage }}
+  name: {{ template "aksname.fullname" . }}-{{ .Values.environment.stage }}
   labels:
-    app: {{ template "blipapitemplate.name" . }}
-    chart: {{ template "blipapitemplate.chart" . }}
+    app: {{ template "aksname.name" . }}
+    chart: {{ template "aksname.chart" . }}
     draft: {{ default "draft-app" .Values.draft }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
@@ -13,7 +13,7 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ template "blipapitemplate.fullname" . }}-{{ .Values.environment.stage }}
+    name: {{ template "aksname.fullname" . }}-{{ .Values.environment.stage }}
   minReplicas: {{ .Values.autoscale.minReplicas }}
   maxReplicas: {{ .Values.autoscale.maxReplicas }}
   metrics:

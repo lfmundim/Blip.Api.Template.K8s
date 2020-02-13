@@ -1,12 +1,12 @@
 {{- if .Values.ingress.enabled -}}
-{{- $fullName := include "blipapitemplate.fullname" . -}}
+{{- $fullName := include "aksname.fullname" . -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: {{ template "blipapitemplate.fullname" . }}-{{ .Values.environment.stage }}
+  name: {{ template "aksname.fullname" . }}-{{ .Values.environment.stage }}
   labels:
-    app: {{ template "blipapitemplate.name" . }}
-    chart: {{ template "blipapitemplate.chart" . }}
+    app: {{ template "aksname.name" . }}
+    chart: {{ template "aksname.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 {{- with .Values.ingress.annotations }}
@@ -22,7 +22,7 @@ spec:
       http:
         paths:
           - backend:
-              serviceName: {{ template "blipapitemplate.fullname" . }}-{{ .Values.environment.stage }}
+              serviceName: {{ template "aksname.fullname" . }}-{{ .Values.environment.stage }}
               servicePort: http
   tls: 
     - secretName: {{ .Values.ingress.tls.secretName }}

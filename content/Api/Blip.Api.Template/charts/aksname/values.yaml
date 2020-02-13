@@ -1,9 +1,9 @@
-# Default values for blipapitemplate.
+# Default values for aksname.
 # Declare variables to be passed into your templates.
-fullnameOverride: blipapitemplate
+fullnameOverride: aksname
 replicaCount: 1
 image:
-  repository: blipapitemplate
+  repository: aksname
   tag: #{Build.BuildId}#
   pullPolicy: IfNotPresent
   imagePullSecretName: acr-takeprivate-secret
@@ -43,7 +43,7 @@ environment:
   stage: staging
 
 appSettings:
-  configMap: blipapitemplate
+  configMap: aksname
   path: /app/appsettings.json
   subPath: appsettings.json
 

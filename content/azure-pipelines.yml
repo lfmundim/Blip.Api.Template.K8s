@@ -1,0 +1,100 @@
+trigger:
+  - master
+  
+resources:
+  - repo: self
+
+variables:
+  buildConfiguration: release
+  packageProjectName: 'aksname'  
+  sonarQubeKey: 'aksname'
+  sonarQubeName: 'blipapitemplate'
+  projectPath: 'blipapitemplate'
+
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+    
+stages:
+  - stage: Build
+    displayName: Build stage
+    variables:      
+    - group: 'Kubernetes Configuration - Release'
+    - group: 'Azure Container Regsitry Credentials'
+    jobs:  
+    - job: Build
+      displayName: Build    
+      pool:
+        name: Azure Pipelines
+        vmImage: $(vmImageName)
+      steps:
+        - task: UseDotNet@2
+          displayName: 'Use .Net Core sdk 3.x'
+          inputs:
+            version: 3.x
+        - task: DotNetCoreCLI@2
+          displayName: Restore .Net Core Project
+          inputs:
+            command: restore
+            projects: '**/*.csproj'
+        - task: DotNetCoreCLI@2
+          displayName: Build .Net Core Project
+          inputs:
+            command: build
+            projects: '**/*.sln'
+            arguments: '--configuration $(buildConfiguration)'
+        - task: UseDotNet@2
+          displayName: 'Use .Net Core sdk 2.x'
+          inputs:
+            version: 2.x
+        - task: SonarSource.sonarqube.15B84CA1-B62F-4A2A-A403-89B77A063157.SonarQubePrepare@4
+          displayName: 'Prepare analysis on SonarQube'
+          inputs:
+            SonarQube: 'SonarQube - K8s'
+            projectKey: '$(sonarQubeKey)'
+            projectName: '$(sonarQubeName)'
+            extraProperties: 'sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/coverage/coverage.opencover.xml
+            sonar.branch.name=$(Build.SourceBranchName)'
+            continueOnError: true            
+        - task: SonarSource.sonarqube.6D01813A-9589-4B15-8491-8164AEB38055.SonarQubeAnalyze@4
+          displayName: 'Run Code Analysis'
+          continueOnError: true
+        - task: SonarSource.sonarqube.291ed61f-1ee4-45d3-b1b0-bf822d9095ef.SonarQubePublish@4
+          displayName: 'Publish Quality Gate Result'
+          continueOnError: true
+        - task: Docker@2
+          displayName: 'Build and Push An Image'
+          inputs:
+            containerRegistry: 'ACR - TakeCustomerSuccess'
+            repository: '$(packageProjectName)'
+            buildContext: Api
+            tags: |
+             $(Build.BuildId)
+             latest
+        - task: qetza.replacetokens.replacetokens-task.replacetokens@3
+          displayName: 'Replace tokens in **/values.yaml'
+          inputs:
+            targetFiles: '**/values*.yaml'
+            verbosity: detailed
+        - task: HelmInstaller@0
+          displayName: 'Install Helm'
+          inputs:
+            helmVersion: '$(helmVersion)'
+            checkLatestHelmVersion: false
+        - task: HelmDeploy@0
+          displayName: 'Helm Package Project'
+          inputs:
+            connectionType: None
+            command: package
+            chartPath: 'Api/$(projectPath)/charts/$(packageProjectName)'
+            arguments: '--version $(Build.BuildId)'     
+        - task: AzureCLI@1
+          displayName: 'Azure CLI  - Push Helm Package'
+          inputs:
+            azureSubscription: 'Bots Production'
+            scriptLocation: inlineScript
+            inlineScript: 'az acr helm push -n $(registryName) -u $(registryLogin) -p $(registryPassword) $(build.artifactStagingDirectory)/$(packageProjectName)-$(build.buildId).tgz'
+        - task: PublishBuildArtifacts@1
+          displayName: 'Publish AppSettings'
+          inputs:
+            PathtoPublish: 'Api/$(projectPath)/appsettings.json'
+            ArtifactName: ApiAppsettings  

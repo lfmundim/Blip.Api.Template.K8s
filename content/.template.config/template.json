@@ -16,51 +16,58 @@
       "FileRename": "Blip.Api.Template.Services",
       "defaultValue": "Blip.Api.Template.Services"
     },
-    "aks":{
+    "projectName": {
       "type": "parameter",
       "datatype": "string",
       "replaces": "blipapitemplate",
       "isRequired": true,
       "fileRename": "blipapitemplate"
     },
-    "sonarqube-guid-ui":{
+    "aksName": {
+      "type": "parameter",
+      "datatype": "string",
+      "replaces": "aksname",
+      "isRequired": true,
+      "fileRename": "aksname"
+    },
+    "sonarqube-guid-ui": {
       "type": "generated",
       "generator": "guid",
       "replaces": "sonarqube-guid-ui",
       "parameters": {
-        "format":"D"
+        "format": "D"
       }
     },
-    "sonarqube-guid-facades":{
+    "sonarqube-guid-facades": {
       "type": "generated",
       "generator": "guid",
       "replaces": "sonarqube-guid-facade",
       "parameters": {
-        "format":"D"
+        "format": "D"
       }
     },
-    "sonarqube-guid-models":{
+    "sonarqube-guid-models": {
       "type": "generated",
       "generator": "guid",
       "replaces": "sonarqube-guid-model",
       "parameters": {
-        "format":"D"
+        "format": "D"
       }
     },
-    "sonarqube-guid-services":{
+    "sonarqube-guid-services": {
       "type": "generated",
       "generator": "guid",
       "replaces": "sonarqube-guid-services",
       "parameters": {
-        "format":"D"
+        "format": "D"
       }
     },
-    "sonarqube-guid-tests":{
+    "sonarqube-guid-tests": {
       "type": "generated",
       "generator": "guid",
       "replaces": "sonarqube-guid-tests",
       "parameters": {
-        "format":"D"
+        "format": "D"
       }
     }
   },
