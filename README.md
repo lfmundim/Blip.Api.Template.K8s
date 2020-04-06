@@ -14,9 +14,9 @@ If you don't have `dotnet` installed, follow [these](https://www.microsoft.com/n
 ## Usage
 To create a new project using this template, after installing, type in the following command
 ```sh
-dotnet new blip-api-k8s --aks NameOfYourApi
+dotnet new blip-api-k8s --aks apiname
 ```
-Replace `NameOfYourApi` with whatever your API will be called within the Orhcestration YAML files. Your new project should be created in the open folder.
+Replace `apiname` with whatever your API will be called within the Orhcestration YAML files. Remember it should be only letters, numbers and dashes, and convention states that it should also be lower-case. Your new project should be created in the open folder.
 
 ### Renaming the `Services` project
 By default, when you create a new solution using the template, all `.csproj` files will use the name of the folder you're in (along with any mentions of `Blip.Api.Template`. You can give the `Services` project a different name should you like it using the CLI param `--Services`. 
