@@ -1,4 +1,6 @@
-﻿namespace Blip.Api.Template.Models.UI
+﻿using Blip.Api.Template.Models.UI;
+
+namespace Blip.Api.Template.Models.Ui
 {
     /// <summary>
     /// Class to use data from appsettings.json "Settings" field
