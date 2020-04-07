@@ -1,6 +1,6 @@
 ﻿using Blip.Api.Template.Facades.Interfaces;
 using Blip.Api.Template.Models;
-using Blip.Api.Template.Models.Ui;
+using Blip.Api.Template.Models.UI;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
