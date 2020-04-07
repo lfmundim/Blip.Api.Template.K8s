@@ -1,6 +1,6 @@
 ﻿using Blip.Api.Template.Models.UI;
 
-namespace Blip.Api.Template.Models.Ui
+namespace Blip.Api.Template.Models.UI
 {
     /// <summary>
     /// Class to use data from appsettings.json "Settings" field
