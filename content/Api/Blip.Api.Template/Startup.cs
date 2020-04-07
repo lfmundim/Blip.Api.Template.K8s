@@ -5,7 +5,7 @@ using System.Reflection;
 using Blip.Api.Template.Facades.Extensions;
 using Blip.Api.Template.Middleware;
 using Blip.Api.Template.Models;
-using Blip.Api.Template.Models.Ui;
+using Blip.Api.Template.Models.UI;
 using Lime.Protocol.Serialization.Newtonsoft;
 
 using Microsoft.AspNetCore.Builder;
