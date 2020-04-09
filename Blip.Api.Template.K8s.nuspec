@@ -2,13 +2,13 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Blip.Api.Template.K8s</id>
-    <version>1.5.0</version>
+    <version>1.6.0</version>
     <description>
       Starts a new K8s-enabled BLiP API project
     </description>
     <authors>Lucas Mundim, Tulio Rezende</authors>
 	<releaseNotes>
-		Add IP Whitelist possibility
+		Multiple minor bugfixes; Adapt to use newer version of Kubernetes
 	</releaseNotes>
     <packageTypes>
       <packageType name="Template" />
