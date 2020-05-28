@@ -59,7 +59,7 @@ namespace Blip.Api.Template.Middleware
             else
             {
                 _logger.Error(exception, "[{@user}] Error: {@exception}", context.Request.Headers[Constants.BLIP_USER_HEADER], exception.Message);
-                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                context.Response.StatusCode = StatusCodes.Status500InternalServerError;
             }
             
             string body = string.Empty;
