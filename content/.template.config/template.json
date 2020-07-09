@@ -21,6 +21,7 @@
       "datatype": "string",
       "replaces": "blipapitemplate",
       "isRequired": true,
+      "description": "Chart name to be used. Must be in lower-kebab-case",
       "fileRename": "blipapitemplate"
     },
     "sonarqube-guid-ui":{
