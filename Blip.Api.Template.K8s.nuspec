@@ -2,13 +2,13 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Blip.Api.Template.K8s</id>
-    <version>1.7.0</version>
+    <version>1.7.1</version>
     <description>
       Starts a new K8s-enabled BLiP API project
     </description>
     <authors>Lucas Mundim, Tulio Rezende</authors>
 	<releaseNotes>
-		Set alpine version to 3.11 since latest was breaking HealthChecks
+		Update Body logging on ErrorHandlingMiddleware
 	</releaseNotes>
     <packageTypes>
       <packageType name="Template" />
