@@ -38,17 +38,25 @@ namespace Blip.Api.Template.Middleware
         /// <returns></returns>
         public async Task InvokeAsync(HttpContext context)
         {
+            var requestBody = string.Empty;
+            context.Request.EnableBuffering();
+
+            using (var reader = new StreamReader(context.Request.Body))
+            {
+                requestBody = await reader.ReadToEndAsync();
+                context.Request.Body.Position = default;
+            }
             try
             {
                 await _next(context);
             }
             catch (Exception ex)
             {
-                await HandleExceptionAsync(context, ex);
+                await HandleExceptionAsync(requestBody, context, ex);
             }
         }
 
-        private async Task HandleExceptionAsync(HttpContext context, Exception exception)
+        private async Task HandleExceptionAsync(string requestBody, HttpContext context, Exception exception)
         {
             // Thrown whenever a RestEase call returns with a non-success HttpStatusCode
             if (exception is RestEase.ApiException apiException)
@@ -61,16 +69,10 @@ namespace Blip.Api.Template.Middleware
                 _logger.Error(exception, "[{@user}] Error: {@exception}", context.Request.Headers[Constants.BLIP_USER_HEADER], exception.Message);
                 context.Response.StatusCode = StatusCodes.Status500InternalServerError;
             }
-            
-            string body = string.Empty;
-            using (var reader = new StreamReader(context.Request.Body))
-            {
-                body = await reader.ReadToEndAsync();
-            }
 
-            _logger.Error(exception, "[traceId:{@traceId}]{@user} Error. Headers: {@headers}. Query: {@query}. Path: {@path}. Body: {@body}",
+            _logger.Error(exception, "[traceId:{@traceId}]{@user} Error. Headers: {@headers}. Query: {@query}. Path: {@path}. Body: {@requestBody}",
                           context.TraceIdentifier, context.Request.Headers[Constants.BLIP_USER_HEADER],
-                          context.Request.Headers, context.Request.Query, context.Request.Path, body);
+                          context.Request.Headers, context.Request.Query, context.Request.Path, requestBody);
 
             context.Response.ContentType = MediaType.ApplicationJson;
             await context.Response.WriteAsync(JsonConvert.SerializeObject($"{exception.Message}| traceId: {context.TraceIdentifier}"));
