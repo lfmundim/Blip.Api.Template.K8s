@@ -41,7 +41,7 @@ namespace Blip.Api.Template.Middleware
             var requestBody = string.Empty;
             context.Request.EnableBuffering();
 
-            using (var reader = new StreamReader(context.Request.Body))
+            using (var reader = new StreamReader(context.Request.Body, leaveOpen: true))
             {
                 requestBody = await reader.ReadToEndAsync();
                 context.Request.Body.Position = default;
