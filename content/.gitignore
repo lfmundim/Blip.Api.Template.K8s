@@ -268,3 +268,6 @@ __pycache__/
 
 # BeatPulse healthcheck temp database
 **/**/healthchecksdb
+
+# VS config
+**/**/launchSettings.json

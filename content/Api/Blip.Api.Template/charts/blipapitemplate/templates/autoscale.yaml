@@ -11,7 +11,7 @@ metadata:
     team: {{ .Values.team }}
 spec:
   scaleTargetRef:
-    apiVersion: apps/v1
+    apiVersion: apps/v2beta1
     kind: Deployment
     name: {{ template "blipapitemplate.fullname" . }}-{{ .Values.environment.stage }}
   minReplicas: {{ .Values.autoscale.minReplicas }}
@@ -20,6 +20,12 @@ spec:
   - type: Resource
     resource:
       name: cpu
+      target:
+        type: Utilization
+        averageUtilization: {{ .Values.autoscale.averageCPUUtilization }}
+  - type: Resource
+    resource:
+      name: memory
       target:
         type: Utilization
         averageUtilization: {{ .Values.autoscale.averageCPUUtilization }}

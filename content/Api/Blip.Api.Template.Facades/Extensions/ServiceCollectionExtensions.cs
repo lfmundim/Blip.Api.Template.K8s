@@ -1,5 +1,4 @@
-﻿using Blip.Api.Template.Facades.Interfaces;
-using Blip.Api.Template.Models;
+﻿using Blip.Api.Template.Models;
 using Blip.Api.Template.Models.UI;
 
 using Microsoft.Extensions.Configuration;
@@ -26,8 +25,7 @@ namespace Blip.Api.Template.Facades.Extensions
 
             // Dependency injection
             services.AddSingleton(settings)
-                    .AddSingleton(settings.BlipBotSettings)
-                    .AddSingleton<IAuthorizationFacade, AuthorizationFacade>();
+                    .AddSingleton(settings.BlipBotSettings);
 
             // SERILOG settings
             services.AddSingleton<ILogger>(new LoggerConfiguration()
