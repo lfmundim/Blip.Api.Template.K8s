@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-
+using Blip.Api.Template.Facades.Strategies.ExceptionHandlingStrategies;
 using Blip.Api.Template.Models;
 
 using Lime.Protocol;
@@ -21,13 +22,17 @@ namespace Blip.Api.Template.Middleware
     {
         private readonly RequestDelegate _next;
         private readonly ILogger _logger;
+        private readonly Dictionary<Type, ExceptionHandlingStrategy> _exceptionHandling;
 
         #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-        public ErrorHandlingMiddleware(RequestDelegate next, ILogger logger)
+        public ErrorHandlingMiddleware(RequestDelegate next, 
+                                       ILogger logger,
+                                       Dictionary<Type, ExceptionHandlingStrategy> exceptionHandling)
         #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             _next = next;
             _logger = logger;
+            _exceptionHandling = exceptionHandling;
         }
 
         /// <summary>
@@ -57,11 +62,9 @@ namespace Blip.Api.Template.Middleware
 
         private async Task HandleExceptionAsync(string requestBody, HttpContext context, Exception exception)
         {
-            // Thrown whenever a RestEase call returns with a non-success HttpStatusCode
-            if (exception is RestEase.ApiException apiException)
+            if (_exceptionHandling.TryGetValue(exception.GetType(), out var handler))
             {
-                _logger.Error(apiException, "[{@user}] Error: {@exception}", context.Request.Headers[Constants.BLIP_USER_HEADER], exception.Message);
-                context.Response.StatusCode = (int)apiException.StatusCode;
+                context = await handler.HandleAsync(context, exception);
             }
             else
             {
