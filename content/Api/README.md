@@ -18,24 +18,12 @@
     ...
           "serverUrl": "seq-url"
     ...
-````
-
-3. Replace `BotName` on the following line @ `Startup.cs` with the Bot's name
-```cs
-    ...
-    .Enrich.WithProperty("Application", "BotName")
-    ...
 ```
 
-4. Replace both Swagger's placeholders `Blip.Api.Template` with your project's info
-```cs
-    ...
-    c.SwaggerDoc("v1", new Info { Title = "Blip.Api.Template", Version = "v1" });
-    ...
-    c.SwaggerEndpoint("./swagger/v1/swagger.json", "Blip.Api.Template V1");
-    ...
-```
+3. Remember to register everything else you create and/or need @ `Startup.cs`
 
-5. Populate `UserContext.cs` and `MySettings.cs` with whatever you need.
-6. Remember to register everything else you create and/or need @ `Startup.cs`
-7. If needed, install `Take.CustomerSuccess.Extensions` and register the needed services
+# Handling other exceptions with the Middleware
+1. Create a new `Strategy` that inherits from `ExceptionHandlingStrategy`
+    * follow the naming format `ExceptionNameHandlingStrategy`
+1. Implement the `HandleAsync` method with that specific exception handling
+1. Add your new exception handler strategy to the dictionary within the `ServiceCollectionExtensions` class
