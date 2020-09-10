@@ -1,9 +1,12 @@
-﻿using Blip.Api.Template.Models;
+using System;
+using System.Collections.Generic;
+using Blip.Api.Template.Facades.Strategies.ExceptionHandlingStrategies;
+using Blip.Api.Template.Models;
 using Blip.Api.Template.Models.UI;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
+using RestEase;
 using Serilog;
 using Serilog.Exceptions;
 
@@ -26,6 +29,16 @@ namespace Blip.Api.Template.Facades.Extensions
             // Dependency injection
             services.AddSingleton(settings)
                     .AddSingleton(settings.BlipBotSettings);
+
+            services.AddSingleton(provider =>
+            {
+                var logger = provider.GetService<ILogger>();
+                return new Dictionary<Type, ExceptionHandlingStrategy>
+                {
+                    { typeof(ApiException), new ApiExceptionHandlingStrategy(logger) },
+                    { typeof(NotImplementedException), new NotImplementedExceptionHandlingStrategy(logger) }
+                };
+            });
 
             // SERILOG settings
             services.AddSingleton<ILogger>(new LoggerConfiguration()
