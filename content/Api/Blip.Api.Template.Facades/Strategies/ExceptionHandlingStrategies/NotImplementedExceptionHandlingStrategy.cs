@@ -18,8 +18,8 @@ namespace Blip.Api.Template.Facades.Strategies.ExceptionHandlingStrategies
 
         public override async Task<HttpContext> HandleAsync(HttpContext context, Exception exception)
         {
-            var apiException = exception as NotImplementedException;
-            _logger.Error(apiException, "[{@user}] Error: {@exception}", context.Request.Headers[Constants.BLIP_USER_HEADER], apiException.Message);
+            var notImplementeException = exception as NotImplementedException;
+            _logger.Error(notImplementeException, "[{@user}] Error: {@exception}", context.Request.Headers[Constants.BLIP_USER_HEADER], notImplementeException.Message);
             context.Response.StatusCode = StatusCodes.Status501NotImplemented;
 
             return await Task.FromResult(context);
