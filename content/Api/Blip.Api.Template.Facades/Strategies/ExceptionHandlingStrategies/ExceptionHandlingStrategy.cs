@@ -28,7 +28,7 @@ namespace Blip.Api.Template.Facades.Strategies.ExceptionHandlingStrategies
 
         #region Public Methods
 
-        public async Task<HttpContext> HandleAsync(HttpContext context, Exception exception)
+        public virtual async Task<HttpContext> HandleAsync(HttpContext context, Exception exception)
         {
             _logger.Error(exception, "[{@user}] Error: {@exception}", context.Request.Headers[Constants.BLIP_USER_HEADER], exception.Message);
             context.Response.StatusCode = GetStatusCode(exception);
