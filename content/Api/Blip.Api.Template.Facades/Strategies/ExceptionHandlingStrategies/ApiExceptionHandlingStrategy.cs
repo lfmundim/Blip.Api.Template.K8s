@@ -1,28 +1,27 @@
 using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Serilog;
+
 using RestEase;
-using Blip.Api.Template.Models;
+
+using Serilog;
 
 namespace Blip.Api.Template.Facades.Strategies.ExceptionHandlingStrategies
 {
     public class ApiExceptionHandlingStrategy : ExceptionHandlingStrategy
     {
-        private readonly ILogger _logger;
+        #region Public Constructors
 
-        public ApiExceptionHandlingStrategy(ILogger logger)
-        {
-            _logger = logger;
-        }
+        public ApiExceptionHandlingStrategy(ILogger logger) : base(logger) { }
 
-        public override async Task<HttpContext> HandleAsync(HttpContext context, Exception exception)
+        #endregion Public Constructors
+
+        #region Internal Methods
+
+        internal override int GetStatusCode(Exception exception)
         {
             var apiException = exception as ApiException;
-            _logger.Error(apiException, "[{@user}] Error: {@exception}", context.Request.Headers[Constants.BLIP_USER_HEADER], apiException.Message);
-            context.Response.StatusCode = (int)apiException.StatusCode;
-
-            return await Task.FromResult(context);
+            return (int)apiException.StatusCode;
         }
+
+        #endregion Internal Methods
     }
 }
