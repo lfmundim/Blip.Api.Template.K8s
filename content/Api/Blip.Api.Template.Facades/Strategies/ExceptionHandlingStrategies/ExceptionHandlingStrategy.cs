@@ -19,7 +19,7 @@ namespace Blip.Api.Template.Facades.Strategies.ExceptionHandlingStrategies
 
         #region Public Constructors
 
-        public ExceptionHandlingStrategy(ILogger logger)
+        protected ExceptionHandlingStrategy(ILogger logger)
         {
             _logger = logger;
         }
