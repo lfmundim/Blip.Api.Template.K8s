@@ -6,25 +6,29 @@ using Blip.Api.Template.Facades.Extensions;
 using Blip.Api.Template.Middleware;
 using Blip.Api.Template.Models;
 using Blip.Api.Template.Models.UI;
+
+using HealthChecks.UI.Client;
+
 using Lime.Protocol.Serialization.Newtonsoft;
 
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Take.Api.Security.Heimdall.Extensions;
 
 using Take.Api.Health.Eir.Extensions;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using HealthChecks.UI.Client;
-using Microsoft.AspNetCore.Routing;
+using Take.Api.Security.Heimdall.Extensions;
 
 namespace Blip.Api.Template
 {
 
-    #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class Startup
     {
         private const string SWAGGERFILE_PATH = "./swagger/v1/swagger.json";
@@ -125,7 +129,13 @@ namespace Blip.Api.Template
 
             endpoints.MapHealthChecks(HEALTH_CHECK_ENDPOINT, new HealthCheckOptions
             {
-                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
+                ResultStatusCodes =
+                {
+                    [HealthStatus.Healthy] = StatusCodes.Status200OK,
+                    [HealthStatus.Degraded] = StatusCodes.Status503ServiceUnavailable,
+                    [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
+                }
             });
         }
     }
