@@ -2,13 +2,13 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Blip.Api.Template.K8s</id>
-    <version>1.8.0</version>
+    <version>1.8.1</version>
     <description>
       Starts a new K8s-enabled BLiP API project
     </description>
     <authors>Lucas Mundim, Tulio Rezende</authors>
 	<releaseNotes>
-		Change exception handling to use Strategy Pattern for a cleaner middleware
+		Add Healthcheck usability
 	</releaseNotes>
     <packageTypes>
       <packageType name="Template" />
