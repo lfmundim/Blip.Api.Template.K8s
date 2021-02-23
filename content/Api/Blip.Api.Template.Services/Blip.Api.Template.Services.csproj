@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <ProjectGuid>{8562C21A-DC12-4F70-AA93-C136563F2CD8}</ProjectGuid>
+    <ProjectGuid>sonarqube-guid-services</ProjectGuid>
   </PropertyGroup>
 
 </Project>
