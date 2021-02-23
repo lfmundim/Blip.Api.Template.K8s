@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <ProjectGuid>sonarqube-guid-tests</ProjectGuid>
+    <TargetFramework>net5.0</TargetFramework>
+    <ProjectGuid>{FE7A5C89-B282-4526-A91B-45A586FA9BD7}</ProjectGuid>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
