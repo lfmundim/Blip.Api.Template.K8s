@@ -13,7 +13,7 @@ using Xunit;
 
 namespace Blip.Api.Template.Tests.Strategies.ExceptionHandlingStrategies
 {
-    public class ApiExceptionHandlingStrategyTests : BaseTests
+    public class ApiExceptionHandlingStrategyTests
     {
         private readonly ILogger _logger;
 
@@ -33,7 +33,7 @@ namespace Blip.Api.Template.Tests.Strategies.ExceptionHandlingStrategies
             var apiExceptionHandlingStrategy = CreateApiExceptionHandlingStrategy();
 
             var context = ControllerSetup.HttpContext;
-            var exception = ControllerSetup.GetApiException(Faker);
+            var exception = ControllerSetup.ApiException;
 
             var result = await apiExceptionHandlingStrategy.HandleAsync(
                 context,

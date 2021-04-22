@@ -15,7 +15,7 @@ using Xunit;
 
 namespace Blip.Api.Template.Tests.Strategies.ExceptionHandlingStrategies
 {
-    public class NotImplementedExceptionHandlingStrategyTests : BaseTests
+    public class NotImplementedExceptionHandlingStrategyTests
     {
         private readonly ILogger _logger;
 
@@ -35,7 +35,7 @@ namespace Blip.Api.Template.Tests.Strategies.ExceptionHandlingStrategies
             var notImplementedExceptionHandlingStrategy = CreateNotImplementedExceptionHandlingStrategy();
 
             var context = ControllerSetup.HttpContext;
-            var exception = ControllerSetup.GetNotImplementedException(Faker);
+            var exception = ControllerSetup.NotImplementedException;
 
             var result = await notImplementedExceptionHandlingStrategy.HandleAsync(
                 context,
