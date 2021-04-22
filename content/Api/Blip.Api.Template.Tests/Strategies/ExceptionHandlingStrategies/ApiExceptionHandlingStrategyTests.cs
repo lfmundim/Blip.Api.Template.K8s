@@ -3,11 +3,11 @@
 using Blip.Api.Template.Facades.Strategies.ExceptionHandlingStrategies;
 using Blip.Api.Template.Tests.Setup.Controller;
 
-using FluentAssertions;
-
 using NSubstitute;
 
 using Serilog;
+
+using Shouldly;
 
 using Xunit;
 
@@ -39,7 +39,7 @@ namespace Blip.Api.Template.Tests.Strategies.ExceptionHandlingStrategies
                 context,
                 exception);
 
-            result.Response.StatusCode.Should().Be((int)exception.StatusCode);
+            result.Response.StatusCode.ShouldBe((int)exception.StatusCode);
         }
     }
 }

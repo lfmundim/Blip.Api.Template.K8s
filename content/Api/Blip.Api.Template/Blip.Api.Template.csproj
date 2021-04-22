@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <ProjectGuid>{2E3DD875-4CFB-41EF-B627-7BA155C63F93}</ProjectGuid>
+    <ProjectGuid>sonarqube-guid-ui</ProjectGuid>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 

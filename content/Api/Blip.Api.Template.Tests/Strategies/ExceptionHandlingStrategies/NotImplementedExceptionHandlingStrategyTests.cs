@@ -3,13 +3,13 @@
 using Blip.Api.Template.Facades.Strategies.ExceptionHandlingStrategies;
 using Blip.Api.Template.Tests.Setup.Controller;
 
-using FluentAssertions;
-
 using Microsoft.AspNetCore.Http;
 
 using NSubstitute;
 
 using Serilog;
+
+using Shouldly;
 
 using Xunit;
 
@@ -41,7 +41,7 @@ namespace Blip.Api.Template.Tests.Strategies.ExceptionHandlingStrategies
                 context,
                 exception);
 
-            result.Response.StatusCode.Should().Be(StatusCodes.Status501NotImplemented);
+            result.Response.StatusCode.ShouldBe(StatusCodes.Status501NotImplemented);
         }
     }
 }
