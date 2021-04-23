@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reflection;
 
@@ -29,6 +30,7 @@ namespace Blip.Api.Template
 {
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+    [ExcludeFromCodeCoverage]
     public class Startup
     {
         private const string SWAGGERFILE_PATH = "./swagger/v1/swagger.json";
@@ -116,7 +118,7 @@ namespace Blip.Api.Template
         {
             services.AddHealthChecksUI(setupSettings: settings =>
             {
-                settings.AddHealthCheckEndpoint(API_CHECK_KEY, LOCALHOST+HEALTH_CHECK_ENDPOINT);
+                settings.AddHealthCheckEndpoint(API_CHECK_KEY, LOCALHOST + HEALTH_CHECK_ENDPOINT);
             });
         }
 

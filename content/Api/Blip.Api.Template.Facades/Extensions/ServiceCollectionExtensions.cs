@@ -1,17 +1,22 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+
 using Blip.Api.Template.Facades.Strategies.ExceptionHandlingStrategies;
 using Blip.Api.Template.Models;
 using Blip.Api.Template.Models.UI;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 using RestEase;
+
 using Serilog;
 using Serilog.Exceptions;
 
 namespace Blip.Api.Template.Facades.Extensions
 {
+    [ExcludeFromCodeCoverage]
     public static class ServiceCollectionExtensions
     {
         private const string APPLICATION_KEY = "Application";
