@@ -1,6 +1,6 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "blipapitemplate.fullname" . -}}
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ template "blipapitemplate.fullname" . }}-{{ .Values.environment.stage }}
@@ -21,9 +21,13 @@ spec:
     - host: {{ .Values.ingress.hostName }}
       http:
         paths:
-          - backend:
-              serviceName: {{ template "blipapitemplate.fullname" . }}-{{ .Values.environment.stage }}
-              servicePort: http
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: {{ template "blipapitemplate.fullname" . }}-{{ .Values.environment.stage }}
+                port:
+                  name: http
   tls: 
     - secretName: {{ .Values.ingress.tls.secretName }}
       hosts:
