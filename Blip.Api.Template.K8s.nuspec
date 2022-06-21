@@ -2,13 +2,13 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Blip.Api.Template.K8s</id>
-    <version>1.8.2</version>
+    <version>1.8.3</version>
     <description>
       Starts a new K8s-enabled BLiP API project
     </description>
     <authors>Lucas Mundim, Tulio Rezende</authors>
 	<releaseNotes>
-		Add unit tests for exception strategies
+		Refactor to use Buffering on Middleware
 	</releaseNotes>
     <packageTypes>
       <packageType name="Template" />
