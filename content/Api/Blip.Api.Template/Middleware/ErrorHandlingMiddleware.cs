@@ -42,25 +42,19 @@ namespace Blip.Api.Template.Middleware
         /// <returns></returns>
         public async Task InvokeAsync(HttpContext context)
         {
-            var requestBody = string.Empty;
             context.Request.EnableBuffering();
-
-            using (var reader = new StreamReader(context.Request.Body, leaveOpen: true))
-            {
-                requestBody = await reader.ReadToEndAsync();
-                context.Request.Body.Position = default;
-            }
+            
             try
             {
                 await _next(context);
             }
             catch (Exception ex)
             {
-                await HandleExceptionAsync(requestBody, context, ex);
+                await HandleExceptionAsync(context, ex);
             }
         }
 
-        private async Task HandleExceptionAsync(string requestBody, HttpContext context, Exception exception)
+        private async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             if (_exceptionHandling.TryGetValue(exception.GetType(), out var handler))
             {
@@ -72,12 +66,23 @@ namespace Blip.Api.Template.Middleware
                 context.Response.StatusCode = StatusCodes.Status500InternalServerError;
             }
 
+            var requestBody = await GetRequestBodyAsync(context.Request);
+
             _logger.Error(exception, "[traceId:{@traceId}]{@user} Error. Headers: {@headers}. Query: {@query}. Path: {@path}. Body: {@requestBody}",
                           context.TraceIdentifier, context.Request.Headers[Constants.BLIP_USER_HEADER],
                           context.Request.Headers, context.Request.Query, context.Request.Path, requestBody);
 
             context.Response.ContentType = MediaType.ApplicationJson;
             await context.Response.WriteAsync(JsonConvert.SerializeObject($"{exception.Message}| traceId: {context.TraceIdentifier}"));
+        }
+
+        private async Task<string> GetRequestBodyAsync(HttpRequest request)
+        {
+            using (var reader = new StreamReader(request.Body, leaveOpen: true))
+            {
+                request.Body.Position = default;
+                return await reader.ReadToEndAsync();
+            }
         }
     }
 }
